@@ -3,7 +3,7 @@ const router = express.Router();
 
 const ClassroomController = require("../controllers/ClassroomController");
 
-const ClassroomRepository = require("../repositories/ClassroomRepository");
+const ClassroomRepository = require("../repositories/classroomRepository");
 const CreateClassroom = require("../usecases/createClassroom");
 const JoinClassroom = require("../usecases/joinClassroom");
 const AssignTestToClassroom = require("../usecases/assignTestToClassroom");
