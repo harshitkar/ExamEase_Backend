@@ -37,7 +37,7 @@ class SignupUser {
     );
 
     return { 
-      status: 201,
+      status: 200,
       user: {
         id: user.id,
         username: user.username,

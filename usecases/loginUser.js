@@ -24,7 +24,7 @@ class LoginUser {
     );
 
     return { 
-      statusCode: 200,
+      status: 200,
       user: {
         id: user.id,
         username: user.username,
