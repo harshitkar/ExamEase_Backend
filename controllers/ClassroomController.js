@@ -1,10 +1,12 @@
 class ClassroomController {
-  constructor(createClassroom, joinClassroom, assignTestToClassroom, getUserClassrooms) {
-    this.createClassroom = createClassroom;
-    this.joinClassroom = joinClassroom;
-    this.assignTestToClassroom = assignTestToClassroom;
-    this.getUserClassrooms = getUserClassrooms;
-  }
+    constructor(createClassroom, joinClassroom, assignTestToClassroom, getUserClassrooms, leaveClassroom, checkIfLastTeacherUseCase) {
+      this.createClassroom = createClassroom;
+      this.joinClassroom = joinClassroom;
+      this.assignTestToClassroom = assignTestToClassroom;
+      this.getUserClassrooms = getUserClassrooms;
+      this.leaveClassroom = leaveClassroom;
+      this.checkIfLastTeacherUseCase = checkIfLastTeacherUseCase;
+    }
 
   async create(req, res) {
     try {
@@ -41,6 +43,26 @@ class ClassroomController {
       const { user_id } = req.params;
       const classrooms = await this.getUserClassrooms.execute(user_id);
       res.status(200).json(classrooms);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  async leave(req, res) {
+    try {
+      const { user_id, classroom_id } = req.body;
+      const result = await this.leaveClassroom.execute(user_id, classroom_id);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async checkIfLastTeacher(req, res) {
+    try {
+      const { classroom_id } = req.params;
+      const isLastTeacher = await this.checkIfLastTeacherUseCase.execute(classroom_id);
+      res.status(200).json({ isLastTeacher });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

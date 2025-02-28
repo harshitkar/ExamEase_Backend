@@ -10,6 +10,11 @@ class JoinClassroom {
       throw new Error("Classroom not found");
     }
 
+    const alreadyJoined = await this.classroomRepository.isUserInClassroom(user_id, classroom.id);
+    if (alreadyJoined) {
+      throw new Error("User is already a member of this classroom");
+    }
+
     return await this.classroomRepository.addUserToClassroom(user_id, classroom.id, role);
   }
 }

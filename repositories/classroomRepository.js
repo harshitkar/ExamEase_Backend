@@ -62,6 +62,40 @@ class ClassroomRepository {
     return result.rows;
   }
 
+  async isUserInClassroom(user_id, classroom_id) {
+    const result = await this.pool.query(
+      `SELECT * FROM user_classrooms WHERE user_id = $1 AND classroom_id = $2`,
+      [user_id, classroom_id]
+    );
+    return result.rows.length > 0;
+  }
+
+  async removeUserFromClassroom(user_id, classroom_id) {
+    await this.pool.query(
+      `DELETE FROM user_classrooms WHERE user_id = $1 AND classroom_id = $2`,
+      [user_id, classroom_id]
+    );
+  }
+
+  async getClassroomMembers(classroom_id) {
+    const result = await this.pool.query(
+      `SELECT user_id, role FROM user_classrooms WHERE classroom_id = $1`,
+      [classroom_id]
+    );
+    return result.rows;
+  }
+
+  async deleteClassroom(classroom_id) {
+    await this.pool.query(`DELETE FROM classrooms WHERE id = $1`, [classroom_id]);
+  }
+
+  async countTeachersInClassroom(classroom_id) {
+    const result = await this.pool.query(
+      `SELECT COUNT(*) FROM user_classrooms WHERE classroom_id = $1 AND role = 'teacher'`,
+      [classroom_id]
+    );
+    return parseInt(result.rows[0].count, 10);
+  }
 }
 
 module.exports = ClassroomRepository;

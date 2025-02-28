@@ -12,4 +12,3 @@ class GetUserClassrooms {
 }
   
 module.exports = GetUserClassrooms;
-  
