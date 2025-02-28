@@ -9,12 +9,12 @@ class LoginUser {
   async execute({ username, password }) {
     const user = await this.userRepository.findByUsername(username);
     if (!user) {
-      throw new Error("User not found.");
+      throw { status: 404, message: "User not found." };
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new Error("Invalid credentials.");
+      throw { status: 401, message: "Invalid credentials." };
     }
 
     const token = jwt.sign(
@@ -24,11 +24,12 @@ class LoginUser {
     );
 
     return { 
+      statusCode: 200,
       user: {
-      id: user.id,
-      username: user.username,
-      fullName: user.fullName,
-      phoneNumber: user.phoneNumber,
+        id: user.id,
+        username: user.username,
+        full_name: user.full_name,
+        phone_number: user.phone_number,
       }, 
       token 
     };

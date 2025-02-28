@@ -1,11 +1,11 @@
 class User {
-    constructor({ id, username, fullName, phoneNumber, password, createdAt }) {
+    constructor({ id, username, full_name, phone_number, password, created_at }) {
       this.id = id;
       this.username = username;
-      this.fullName = fullName;
-      this.phoneNumber = phoneNumber;
+      this.full_name = full_name;
+      this.phone_number = phone_number;
       this.password = password;
-      this.createdAt = createdAt;
+      this.created_at = created_at;
     }
   }
   

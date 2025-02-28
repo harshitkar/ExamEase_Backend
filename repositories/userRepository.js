@@ -13,17 +13,7 @@ class UserRepository {
   
     if (result.rows.length === 0) return null;
   
-    const row = result.rows[0];
-  
-    console.log(row);
-  
-    return new User({
-      id: row.id,
-      username: row.username,
-      fullName: row.full_name,
-      phoneNumber: row.phone_number,
-      password: row.password
-    });
+    return new User(result.rows[0]);
   }
 
   async findByPhoneNumber(phoneNumber) {
@@ -36,13 +26,14 @@ class UserRepository {
     return new User(result.rows[0]);
   }
 
-  async createUser({ username, fullName, phoneNumber, password }) {
+  async createUser({ username, full_name, phone_number, password }) {
     const result = await this.pool.query(
       `INSERT INTO users (username, full_name, phone_number, password) 
        VALUES ($1, $2, $3, $4) RETURNING *`,
-      [username, fullName, phoneNumber, password]
+      [username, full_name, phone_number, password]
     );
-
+  
+    if (result.rows.length === 0) return null;
     return new User(result.rows[0]);
   }
 }

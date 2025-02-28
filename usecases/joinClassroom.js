@@ -3,14 +3,14 @@ class JoinClassroom {
     this.classroomRepository = classroomRepository;
   }
 
-  async execute({ userId, joinCode, role }) {
-    const classroom = await this.classroomRepository.findByJoinCode(joinCode);
+  async execute({ user_id, join_code, role }) {
+    const classroom = await this.classroomRepository.findByJoinCode(join_code);
 
     if (!classroom) {
       throw new Error("Classroom not found");
     }
 
-    return await this.classroomRepository.addUserToClassroom(userId, classroom.id, role);
+    return await this.classroomRepository.addUserToClassroom(user_id, classroom.id, role);
   }
 }
 

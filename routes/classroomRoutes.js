@@ -36,7 +36,7 @@ router.post("/assign-test", async (req, res) => {
   await classroomController.assignTest(req, res);
 });
 
-router.get("/user/:userId", async (req, res) => {
+router.get("/user/:user_id", async (req, res) => {
   await classroomController.getClassroomsForUser(req, res);
 });
 

@@ -7,19 +7,19 @@ class CreateClassroom {
     this.classroomRepository = classroomRepository;
   }
 
-  async execute({ classroomName, createdBy }) {
-    const joinCode = generateRandomCode();
+  async execute({ classroom_name, created_by }) {
+    const join_code = generateRandomCode();
 
     const classroom = await this.classroomRepository.createClassroom({
-      classroomName,
-      joinCode,
-      createdBy,
+      classroom_name,
+      join_code,
+      created_by,
     });
 
     const joinClassroomInstance = new JoinClassroom(this.classroomRepository);
     const newClassroom = await joinClassroomInstance.execute({
-      userId: createdBy,
-      joinCode,
+      user_id: created_by,
+      join_code,
       role: "teacher",
     });
 

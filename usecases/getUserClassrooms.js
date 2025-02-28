@@ -3,11 +3,11 @@ class GetUserClassrooms {
         this.classroomRepository = classroomRepository;
     }
 
-    async execute(userId) {
-        if (!userId) {
+    async execute(user_id) {
+        if (!user_id) {
             throw new Error("User ID is required");
         }
-        return this.classroomRepository.loadAllClassrooms(userId);
+        return this.classroomRepository.loadAllClassrooms(user_id);
     }
 }
   

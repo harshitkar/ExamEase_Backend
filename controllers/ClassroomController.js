@@ -8,8 +8,8 @@ class ClassroomController {
 
   async create(req, res) {
     try {
-      const { classroomName, createdBy } = req.body;
-      const classroom = await this.createClassroom.execute({ classroomName, createdBy });
+      const { classroom_name, created_by } = req.body;
+      const classroom = await this.createClassroom.execute({ classroom_name, created_by });
       res.status(201).json(classroom);
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -18,8 +18,8 @@ class ClassroomController {
 
   async join(req, res) {
     try {
-      const { userId, joinCode, role } = req.body;
-      const result = await this.joinClassroom.execute({ userId, joinCode, role });
+      const { user_id, join_code, role } = req.body;
+      const result = await this.joinClassroom.execute({ user_id, join_code, role });
       res.status(200).json(result);
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -28,8 +28,8 @@ class ClassroomController {
 
   async assignTest(req, res) {
     try {
-      const { classroomId, testId } = req.body;
-      const result = await this.assignTestToClassroom.execute({ classroomId, testId });
+      const { classroom_id, test_id } = req.body;
+      const result = await this.assignTestToClassroom.execute({ classroom_id, test_id });
       res.status(200).json(result);
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -38,8 +38,8 @@ class ClassroomController {
 
   async getClassroomsForUser(req, res) {
     try {
-      const { userId } = req.params;
-      const classrooms = await this.getUserClassrooms.execute(userId);
+      const { user_id } = req.params;
+      const classrooms = await this.getUserClassrooms.execute(user_id);
       res.status(200).json(classrooms);
     } catch (error) {
       res.status(400).json({ error: error.message });
